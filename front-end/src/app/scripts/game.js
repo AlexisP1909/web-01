@@ -25,7 +25,7 @@ var CARD_TEMPLATE = ""
   {
     super(template);
     // gather parameters from URL
-    var params = parseUrl();
+    const params = parseUrl();
 
     // save player name & game ize
     this.template = template;
@@ -44,37 +44,32 @@ var CARD_TEMPLATE = ""
           // create cards out of the config
           this._cards = [];
           // TODO #functional-programming: use Array.map() instead.
-          for (var i in this._config.ids) {
+          for (const i in this._config.ids) {
             this._cards[i] = new CardComponent(this._config.ids[i]);
           }
 
           // TODO #functional-programming: use Array.forEach() instead.
-          // TODO #let-const: replace var with let.
-          for (var i in this._cards) {
-            var card = this._cards[i];
+          for (let i in this._cards) {
+            let card = this._cards[i];
 
-            // TODO #let-const: extract function _appendCard (ie: copy its body here and remove the function)
-            this._appendCard(card);
+          this._boardElement.appendChild(card.getElement());
+
+          card.getElement().addEventListener(
+              "click",
+              // TODO #arrow-function: use arrow function instead.
+              function () {
+                  this._flipCard(card);
+              }.bind(this)
+          );
           }
 
           this.start();
         }.bind(this)
     );
   }
-  _appendCard(card) {
-    this._boardElement.appendChild(card.getElement());
-
-    card.getElement().addEventListener(
-        "click",
-        // TODO #arrow-function: use arrow function instead.
-        function () {
-          this._flipCard(card);
-        }.bind(this)
-    );
-  }
   start() {
     this._startTime = Date.now();
-    var seconds = 0;
+    let seconds = 0;
     // TODO #template-literals:  use template literals (backquotes)
     document.querySelector("nav .navbar-title").textContent =
         "Player: " + this._name + ". Elapsed time: " + seconds++;
@@ -90,7 +85,7 @@ var CARD_TEMPLATE = ""
     );
   }
   fetchConfig(cb) {
-    var xhr =
+    const xhr =
         typeof XMLHttpRequest != "undefined"
             ? new XMLHttpRequest()
             : new ActiveXObject("Microsoft.XMLHTTP");
@@ -100,8 +95,8 @@ var CARD_TEMPLATE = ""
 
     // TODO #arrow-function: use arrow function instead.
     xhr.onreadystatechange = function () {
-      var status;
-      var data;
+      let status;
+      let data;
       // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-readystate
       if (xhr.readyState == 4) {
         // `DONE`
@@ -117,7 +112,7 @@ var CARD_TEMPLATE = ""
     xhr.send();
   }
   goToScore() {
-    var timeElapsedInSeconds = Math.floor(
+    const timeElapsedInSeconds = Math.floor(
         (Date.now() - this._startTime) / 1000
     );
     clearInterval(this._timer);
@@ -125,7 +120,7 @@ var CARD_TEMPLATE = ""
     setTimeout(
         // TODO #arrow-function: use arrow function instead.
         function () {
-          var scorePage = "./#score";
+          const scorePage = "./#score";
           // TODO #template-literals:  use template literals (backquotes)
           window.location =
               scorePage +
@@ -206,7 +201,7 @@ import card6 from "/src/assets/cards/card-6.png";
 import card7 from "/src/assets/cards/card-7.png";
 import card8 from "/src/assets/cards/card-8.png";
 import card9 from "/src/assets/cards/card-9.png";
-  var CARDS_IMAGE = [
+  const CARDS_IMAGE = [
    back,
       card0,
       card1,
