@@ -34,30 +34,27 @@ var CARD_TEMPLATE = ""
     this._flippedCard = null;
     this._matchedPairs = 0;
   }
-  init(){
-    this.fetchConfig(
-         (config) => {
-          this._config = config;
-          this._boardElement = document.querySelector(".cards");
+  async init() {
+            this._config = await this.fetchConfig();
+            this._boardElement = document.querySelector(".cards");
 
-          // create cards out of the config
-             this._cards = this._config.ids
-                                    .map((x) => new CardComponent(x))
+            // create cards out of the config
+            this._cards = this._config.ids
+                .map((x) => new CardComponent(x))
 
-          this._cards.forEach((card) => {
+            this._cards.forEach((card) => {
 
-              this._boardElement.appendChild(card.getElement());
+                this._boardElement.appendChild(card.getElement());
 
-              card.getElement().addEventListener(
-                  "click",
-                  () => {
-                      this._flipCard(card);
-                  }
-              );
-          })
-          this.start();
-        }
-    );
+                card.getElement().addEventListener(
+                    "click",
+                    () => {
+                        this._flipCard(card);
+                    }
+                );
+            })
+            this.start();
+
   }
   start() {
     this._startTime = Date.now();
@@ -73,30 +70,9 @@ var CARD_TEMPLATE = ""
         1000
     );
   }
-  fetchConfig(cb) {
-    const xhr =
-        typeof XMLHttpRequest != "undefined"
-            ? new XMLHttpRequest()
-            : new ActiveXObject("Microsoft.XMLHTTP");
-
-    xhr.open("get", `${environment.api.host}/board?size=${this._size}`, true);
-
-    xhr.onreadystatechange = () => {
-      let status;
-      let data;
-      // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-readystate
-      if (xhr.readyState == 4) {
-        // `DONE`
-        status = xhr.status;
-        if (status == 200) {
-          data = JSON.parse(xhr.responseText);
-          cb(data);
-        } else {
-          throw new Error(status);
-        }
-      }
-    };
-    xhr.send();
+    async fetchConfig() {
+      const response = await fetch(`${environment.api.host}/board?size=${this._size}`);
+      return response.json();
   }
   goToScore() {
     const timeElapsedInSeconds = Math.floor(
