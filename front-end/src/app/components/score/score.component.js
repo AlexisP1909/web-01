@@ -1,9 +1,11 @@
-import template from "../views/score.html"
-  /* class ScoreComponent constructor */
-import {parseUrl} from "./utils";
-import {Component} from "./component";
+import template from "./score.component.html"
+/* class ScoreComponent constructor */
+import {parseUrl} from "../../scripts/utils";
+import {Component} from "../../scripts/component";
+import "./score.component.css";
 
-export class ScoreComponent extends Component{
+
+export class ScoreComponent extends Component {
     constructor() {
         super(template);
         const params = parseUrl();
@@ -13,11 +15,12 @@ export class ScoreComponent extends Component{
         this.size = parseInt(params.size);
         this.time = parseInt(params.time);
     }
+
     init() {
         document.getElementById("name").innerText = this.name;
         document.getElementById("size").innerText = this.size;
         document.getElementById("time").innerText = this.time;
     }
 
-  }
+}
 

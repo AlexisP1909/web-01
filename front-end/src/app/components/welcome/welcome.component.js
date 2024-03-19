@@ -1,38 +1,42 @@
-// TODO #import-html: use ES default imports to import welcome.html as template
-import template from "../views/welcome.html"
-import {Component} from "./component";
-  /* class WelcomeComponent constructor  */
- export class WelcomeComponent extends Component{
-     constructor() {
-         super(template);
-         this.template = template;
+// TODO #import-html: use ES default imports to import welcome.component.html as template
+import template from "./welcome.component.html"
+import {Component} from "../../scripts/component";
+import "./welcome.component.css";
 
-     }
-     init() {
-         const form = document.querySelector("form.form-signin");
+/* class WelcomeComponent constructor  */
+export class WelcomeComponent extends Component {
+    constructor() {
+        super(template);
+        this.template = template;
 
-         form.addEventListener(
-             "submit",
-             (event) =>{
-                 event.preventDefault();
-                 if (form.checkValidity() === false) {
-                     event.stopPropagation();
-                     form.classList.add("was-validated");
-                 } else {
-                     const name = event.srcElement.querySelector("#nickname").value;
-                     const size = parseInt(event.srcElement.querySelector("#size").value);
+    }
 
-                     this._startGame(name, size);
-                 }
-             },
-             false
-         );
+    init() {
+        const form = document.querySelector("form.form-signin");
 
-         return this;
-     }
-     _startGame(name, size) {
-         const gamePage = "./#game";
-         window.location = `${gamePage}?name=${name}&size=${size}`;
-     }
-  }
+        form.addEventListener(
+            "submit",
+            (event) => {
+                event.preventDefault();
+                if (form.checkValidity() === false) {
+                    event.stopPropagation();
+                    form.classList.add("was-validated");
+                } else {
+                    const name = event.srcElement.querySelector("#nickname").value;
+                    const size = parseInt(event.srcElement.querySelector("#size").value);
+
+                    this._startGame(name, size);
+                }
+            },
+            false
+        );
+
+        return this;
+    }
+
+    _startGame(name, size) {
+        const gamePage = "./#game";
+        window.location = `${gamePage}?name=${name}&size=${size}`;
+    }
+}
 
