@@ -7,7 +7,7 @@
 
 4-Une IIFE (Immediately Invoked Function Expression) est une fonction qui s'exécute immédiatement après sa définition. Elle était utilisée pour gérer le scope des variables. Avec l'introduction des modules ES6, l'utilisation des IIFE a diminué car let, const et les imports permettent de mieux gérer le scope.
 
-5-import * from './utils' importe tout depuis le module ./utils dans un objet, tandis que import { parseUrl } from './utils' importe seulement la fonction ou la variable parseUrl. Utiliser le premier peut charger plus de code que ce dont on a besoin, affectant les performances.
+5-import * as toto from './utils' importe tout depuis le module ./utils dans un objet nommé toto, tandis que import { parseUrl } from './utils' importe seulement la fonction ou la variable parseUrl. Utiliser le premier peut charger plus de code que ce dont on a besoin, affectant les performances.
 
 6-Avec les classes Java, on peut overloader des fonctions et faire de l'héritage multiple.
 
